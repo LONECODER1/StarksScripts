@@ -5,10 +5,12 @@ import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 import Footer from '../components/Footer';
 import Features from '../components/Features';
+import Header from '../components/Header';
 
 const HomePage = () => {
     return (
         <div className='text-amber-300'>
+            <Header/>
             <Hero />
             <Features />
             <Testimonials />
