@@ -1,6 +1,6 @@
 "use client"
 import React, { useMemo } from 'react';
-import { animationVariants, bubbles } from '../data/bubbleData';
+import { animationVariants, bubbles } from '../data/bubble.data';
 
 interface RandomizedBubble {
   top: string;
@@ -60,7 +60,7 @@ const Hero = () => {
 
   return (
     // OUTER WRAPPER = fake border
-    <div className="min-h-screen bg-amber-50 p-2">
+    <div id="home" className="page-section min-h-screen bg-amber-50 p-2">
 
       {/* INNER CONTAINER = curved */}
       <div className="relative min-h-screen bg-linear-to-br from-black via-gray-900 to-black rounded-2xl overflow-hidden">

@@ -1,10 +1,12 @@
+import { Faq1 } from "@/components/faq1";
+
 import React from 'react';
 
-const FAQs = () => {
+function FAQs() {
   return (
-    <div>
-      This is the FAQs Component
-    </div>
+    <section id="faqs" className="page-section">
+      <Faq1 />
+    </section>
   );
 }
 
