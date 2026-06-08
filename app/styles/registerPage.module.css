@@ -1,0 +1,229 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-rajdhani), sans-serif;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 1;
+}
+
+.splitCard {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 840px;
+  min-height: 520px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.imagePanel {
+  display: none;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.formPanel {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .imagePanel {
+    display: block;
+  }
+}
+
+@media (max-width: 899px) {
+  .splitCard {
+    max-width: 420px;
+  }
+}
+
+.title {
+  font-family: var(--font-orbitron), monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.highlight {
+  color: #dc2626;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Floating label field ── */
+.fieldWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 1.1rem 1rem 0.4rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.95rem;
+  font-family: var(--font-rajdhani), sans-serif;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+/* Label sits inside the input by default */
+.label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.92rem;
+  font-family: var(--font-rajdhani), sans-serif;
+  color: #94a3b8;
+  pointer-events: none;
+  transition:
+    top 0.2s ease,
+    font-size 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+  background: transparent;
+  padding: 0 2px;
+}
+
+/* Float label up when input is focused OR has content */
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 0.45rem;
+  transform: translateY(0);
+  font-size: 0.7rem;
+  color: #dc2626;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.forgotWrapper {
+  text-align: right;
+  margin-top: -0.25rem;
+}
+
+.forgotLink {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.forgotLink:hover {
+  color: #dc2626;
+}
+
+.button {
+  margin-top: 0.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+  border: none;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-rajdhani), sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.button:hover {
+  background: #b91c1c;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.footerText {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.link {
+  color: #dc2626;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink {
+  margin-top: 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-decoration: none;
+  display: block;
+}

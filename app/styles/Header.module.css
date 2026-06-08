@@ -136,12 +136,15 @@
   border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .registerBtn:hover {
-  background: #b91c1c;
-  border-color: #b91c1c;
+  background: #fff;
+  border-color: #fff;
+  color: #b91c1c;
 }
 
 .menuBtn {
@@ -166,7 +169,9 @@
   height: 2px;
   background: #0f172a;
   border-radius: 1px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .menuBtnOpen .menuBar:nth-child(1) {
@@ -188,7 +193,9 @@
   z-index: 200;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .overlayVisible {
@@ -248,7 +255,9 @@
   cursor: pointer;
   border-radius: 4px;
   flex-shrink: 0;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
 .closeBtn:hover {
@@ -273,7 +282,10 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-left: 3px solid transparent;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .sidebarLink:hover {
@@ -318,7 +330,9 @@
   border-radius: 3px;
   cursor: pointer;
   width: 100%;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .sidebarRegisterBtn:hover {

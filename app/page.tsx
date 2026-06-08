@@ -1,5 +1,5 @@
-import HomePage from "./pages/HomePage";
-const page = () => {
+import HomePage from './pages/HomePage';
+
+export default function Page() {
   return <HomePage />;
 }
-export default page;
