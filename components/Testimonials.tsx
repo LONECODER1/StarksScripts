@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { testimonialsData } from "@/app/data/bubble.data";
+import { testimonialsData } from "@/app/utils/data/bubble.data";
 
 type Testimonial = {
   name: string;

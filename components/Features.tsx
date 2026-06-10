@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { featuresData } from '@/app/data/HomePage.data';
+import { featuresData } from '@/app/utils/data/HomePage.data';
 
 const useInView = (threshold = 0.15) => {
   const ref = useRef<HTMLDivElement>(null);

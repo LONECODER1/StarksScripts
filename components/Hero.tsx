@@ -1,6 +1,6 @@
 "use client"
 import React, { useMemo } from 'react';
-import { animationVariants, bubbles } from '@/app/data/bubble.data';
+import { animationVariants, bubbles } from '@/app/utils/data/bubble.data';
 
 interface RandomizedBubble {
   top: string;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/styles/Header.module.css';
-import { headerNavItems, NavSectionId } from '@/app/data/HomePage.data';
+import { headerNavItems, NavSectionId } from '@/app/utils/data/HomePage.data';
 
 const Header = () => {
 
