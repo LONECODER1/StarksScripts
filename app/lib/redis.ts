@@ -16,7 +16,7 @@ export const connectRedis = async () => {
 
   try {
     await client.connect();
-    console.log("Redis connected successfully");
+    console.log("Redis connected successfully (used for OTP verification)");
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("Redis connection error:", message);

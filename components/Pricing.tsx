@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import styles from '@/app/styles/Pricing.module.css';
 
 const plans = [
   {
@@ -74,94 +75,45 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
 const PricingCard = ({ plan }: { plan: typeof plans[0] }) => {
   const [selectedDuration, setSelectedDuration] = useState(plan.durations[0]);
-  const [btnHovered, setBtnHovered] = useState(false);
   const time = useCountdown();
   const price = (plan.prices as Record<string, { original: number; discounted: number }>)[selectedDuration];
 
   return (
-    <div style={{
-      background: '#1a1a1a',
-      borderRadius: '20px',
-      overflow: 'hidden',
-      width: '380px',
-      flexShrink: 0,
-      border: plan.popular ? '2px solid #e8722a' : '1px solid rgba(255,255,255,0.08)',
-      position: 'relative',
-      boxShadow: plan.popular
-        ? '0 0 40px rgba(232,114,42,0.2), 0 20px 60px rgba(0,0,0,0.5)'
-        : '0 20px 60px rgba(0,0,0,0.4)',
-      fontFamily: 'var(--font-rajdhani), sans-serif',
-      animation: 'fadeUp 0.6s ease forwards',
-      opacity: 0,
-      animationDelay: plan.popular ? '0.1s' : '0s',
-    }}>
+    <div className={`${styles.card} ${plan.popular ? styles.cardPopular : ''}`}>
 
       {/* Most Popular Banner */}
       {plan.popular && (
-        <div style={{
-          background: 'linear-gradient(135deg, #e8722a, #f59340)',
-          padding: '10px 24px',
-          textAlign: 'center',
-          fontSize: '13px',
-          fontWeight: 700,
-          letterSpacing: '0.08em',
-          color: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-        }}>
+        <div className={styles.popularBanner}>
           🏆 Most Popular
         </div>
       )}
 
-      <div style={{ padding: '28px 28px 0' }}>
+      <div className={styles.cardContent}>
         {/* Header */}
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ fontSize: '28px', marginBottom: '10px' }}>{plan.emoji}</div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
-            <span style={{
-              fontFamily: 'var(--font-orbitron), monospace',
-              fontSize: '22px', fontWeight: 700, color: '#ffffff',
-            }}>{plan.name}</span>
-            <span style={{ fontSize: '13px', color: '#4ade80', fontWeight: 600 }}>
+        <div className={styles.cardHeader}>
+          <div className={styles.emoji}>{plan.emoji}</div>
+          <div className={styles.titleArea}>
+            <span className={styles.planName}>{plan.name}</span>
+            <span className={styles.learnersCount}>
               ({plan.learners} Learners)
             </span>
           </div>
-          <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginTop: '4px', fontWeight: 500 }}>
+          <div className={styles.tagline}>
             {plan.tagline}
           </div>
         </div>
 
         {/* Duration tabs */}
-        <div style={{
-          display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px',
-        }}>
+        <div className={styles.tabs}>
           {plan.durations.map(d => (
             <button
               key={d}
+              type="button"
               onClick={() => setSelectedDuration(d)}
-              style={{
-                position: 'relative',
-                padding: '8px 16px',
-                borderRadius: '50px',
-                border: selectedDuration === d ? '1.5px solid #e8722a' : '1.5px solid rgba(255,255,255,0.15)',
-                background: selectedDuration === d ? 'transparent' : 'rgba(255,255,255,0.04)',
-                color: selectedDuration === d ? '#e8722a' : 'rgba(255,255,255,0.6)',
-                fontSize: '13px', fontWeight: 600,
-                fontFamily: 'var(--font-rajdhani), sans-serif',
-                cursor: 'pointer',
-                letterSpacing: '0.03em',
-                transition: 'all 0.2s ease',
-              }}
+              className={`${styles.tabBtn} ${selectedDuration === d ? styles.tabBtnActive : ''}`}
             >
               {d === plan.bestValue && (
-                <span style={{
-                  position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)',
-                  background: '#e8722a', color: '#fff',
-                  fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em',
-                  padding: '2px 8px', borderRadius: '20px', whiteSpace: 'nowrap',
-                }}>BEST VALUE</span>
+                <span className={styles.bestValueBadge}>BEST VALUE</span>
               )}
               {d}
             </button>
@@ -169,36 +121,25 @@ const PricingCard = ({ plan }: { plan: typeof plans[0] }) => {
         </div>
 
         {/* Pricing */}
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
-            <span style={{
-              fontSize: '16px', color: 'rgba(255,255,255,0.35)',
-              textDecoration: 'line-through',
-              fontFamily: 'var(--font-orbitron), monospace',
-            }}>
+        <div className={styles.pricingArea}>
+          <div className={styles.originalPriceRow}>
+            <span className={styles.originalPrice}>
               ₹{price.original.toLocaleString('en-IN')}.00
             </span>
-            <span style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              fontSize: '13px', color: 'rgba(255,255,255,0.5)',
-            }}>
+            <span className={styles.countdown}>
               ⏱ {pad(time.h)}H : {pad(time.m)}M : {pad(time.s)}S
             </span>
           </div>
-          <div style={{
-            fontFamily: 'var(--font-orbitron), monospace',
-            fontSize: '36px', fontWeight: 700, color: '#ffffff', lineHeight: 1,
-            marginBottom: '10px',
-          }}>
+          <div className={styles.discountedPrice}>
             ₹{price.discounted.toLocaleString('en-IN')}.00
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ color: '#e8722a', fontSize: '13px' }}>🏷</span>
-            <span style={{ fontSize: '13px', color: '#e8722a', fontWeight: 700, letterSpacing: '0.06em' }}>
+          <div className={styles.promoBadgeRow}>
+            <span className={styles.promoIcon}>🏷</span>
+            <span className={styles.promoDiscount}>
               35% OFF
             </span>
-            <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>·</span>
-            <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontWeight: 600, letterSpacing: '0.06em' }}>
+            <span className={styles.promoDot}>·</span>
+            <span className={styles.promoCode}>
               SUMMERARC
             </span>
           </div>
@@ -206,56 +147,22 @@ const PricingCard = ({ plan }: { plan: typeof plans[0] }) => {
 
         {/* Subscribe Button */}
         <button
-          onMouseEnter={() => setBtnHovered(true)}
-          onMouseLeave={() => setBtnHovered(false)}
-          style={{
-            width: '100%',
-            padding: '14px',
-            borderRadius: '10px',
-            border: 'none',
-            background: btnHovered
-              ? 'linear-gradient(135deg, #f59340, #e8722a)'
-              : plan.popular
-                ? 'linear-gradient(135deg, #e8722a, #c85d1a)'
-                : 'transparent',
-            borderWidth: plan.popular ? 0 : '1.5px',
-            borderStyle: 'solid',
-            borderColor: '#e8722a',
-            color: plan.popular ? '#fff' : btnHovered ? '#fff' : '#e8722a',
-            fontFamily: 'var(--font-orbitron), monospace',
-            fontSize: '13px', fontWeight: 700,
-            letterSpacing: '0.08em',
-            cursor: 'pointer',
-            transition: 'all 0.25s ease',
-            transform: btnHovered ? 'translateY(-2px)' : 'translateY(0)',
-            boxShadow: btnHovered ? '0 8px 24px rgba(232,114,42,0.4)' : 'none',
-            marginBottom: '24px',
-          }}
+          type="button"
+          className={`${styles.subscribeBtn} ${plan.popular ? styles.subscribeBtnPopular : ''}`}
         >
           {plan.popular ? '🚀 Subscribe to Pinnacle' : '⚡ Subscribe to Sprint'}
         </button>
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '0 28px' }} />
+      <div className={styles.divider} />
 
       {/* Features */}
-      <div style={{ padding: '20px 28px 28px' }}>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className={styles.featuresArea}>
+        <ul className={styles.featuresList}>
           {plan.features.map((f, i) => (
-            <li key={i} style={{
-              display: 'flex', alignItems: 'center', gap: '10px',
-              fontSize: '13px',
-              color: f.included ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)',
-              fontWeight: f.included ? 600 : 500,
-            }}>
-              <span style={{
-                width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
-                background: f.included ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.06)',
-                border: `1.5px solid ${f.included ? '#4ade80' : 'rgba(255,255,255,0.15)'}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '11px',
-              }}>
+            <li key={i} className={`${styles.featureItem} ${f.included ? styles.featureIncluded : ''}`}>
+              <span className={`${styles.iconWrapper} ${f.included ? styles.iconIncluded : ''}`}>
                 {f.included ? '✓' : '✕'}
               </span>
               {f.text}
@@ -269,47 +176,22 @@ const PricingCard = ({ plan }: { plan: typeof plans[0] }) => {
 
 const Pricing = () => {
   return (
-    <section
-      id="pricing"
-      className="page-section"
-      style={{
-      background: '#111111',
-      padding: '96px 64px',
-      fontFamily: 'var(--font-rajdhani), sans-serif',
-      minHeight: '100vh',
-    }}>
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(32px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-
+    <section id="pricing" className={`page-section ${styles.pricingSection}`}>
       {/* Heading */}
-      <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-        <span style={{
-          fontSize: '11px', fontWeight: 600, letterSpacing: '0.2em',
-          textTransform: 'uppercase', color: '#e8722a',
-        }}>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionSubtitle}>
           Pricing Plans
         </span>
-        <h2 style={{
-          fontFamily: 'var(--font-orbitron), monospace',
-          fontSize: '32px', fontWeight: 700, color: '#ffffff',
-          margin: '10px 0 14px', letterSpacing: '0.02em',
-        }}>
-          Choose Your <span style={{ color: '#e8722a' }}>Path</span>
+        <h2 className={styles.sectionTitle}>
+          Choose Your <span className={styles.highlightText}>Path</span>
         </h2>
-        <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.45)', maxWidth: '460px', margin: '0 auto', lineHeight: 1.7 }}>
+        <p className={styles.sectionDescription}>
           Both plans built for placement success — pick the depth that fits your goals.
         </p>
       </div>
 
       {/* Cards */}
-      <div style={{
-        display: 'flex', gap: '28px', justifyContent: 'center',
-        alignItems: 'flex-start', flexWrap: 'wrap',
-      }}>
+      <div className={styles.cardsContainer}>
         {plans.map(plan => <PricingCard key={plan.id} plan={plan} />)}
       </div>
     </section>

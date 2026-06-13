@@ -1,0 +1,281 @@
+.featuresSection {
+  padding: 96px 64px;
+  background: #f8fafc;
+  font-family: var(--font-rajdhani), sans-serif;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 64px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.sectionHeading.headingIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionSubtitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #dc2626;
+}
+
+.sectionTitle {
+  font-family: var(--font-orbitron), monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 10px 0 14px;
+  letter-spacing: 0.02em;
+}
+
+.highlightText {
+  color: #dc2626;
+}
+
+.sectionDescription {
+  font-size: 15px;
+  color: #64748b;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.gridContainer {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gridColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+/* SmallCard styles */
+.smallCard {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 28px;
+  flex: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease var(--delay), transform 0.7s ease var(--delay);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: default;
+}
+
+.smallCard.inView {
+  opacity: 1;
+  transform: translateY(0);
+  transition: border 0.25s ease, box-shadow 0.25s ease, transform 0.3s ease;
+}
+
+.smallCard.inView:hover {
+  border-color: var(--tag-color);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px var(--tag-color-alpha);
+  transform: translateY(-6px);
+}
+
+.icon {
+  font-size: 28px;
+  line-height: 1;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+  display: inline-block;
+  width: max-content;
+}
+
+.smallCard:hover .icon {
+  transform: scale(1.15);
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tag-color);
+  font-family: var(--font-rajdhani), sans-serif;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: var(--font-orbitron), monospace;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.smallCard:hover .title {
+  color: var(--tag-color);
+}
+
+.description {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.65;
+  margin: 0;
+  font-family: var(--font-rajdhani), sans-serif;
+}
+
+.bottomBar {
+  margin-top: 4px;
+  width: 0px;
+  height: 2px;
+  background: var(--tag-color);
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+.smallCard:hover .bottomBar {
+  width: 48px;
+}
+
+/* TallCard styles */
+.tallCard {
+  background: #0f172a;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 14px;
+  padding: 40px 32px;
+  flex: 1;
+  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.75s ease 300ms, transform 0.75s ease 300ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.tallCard.inView {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: border 0.25s ease, box-shadow 0.3s ease, transform 0.35s ease;
+}
+
+.tallCard.inView:hover {
+  border-color: rgba(220, 38, 38, 0.7);
+  box-shadow: 0 16px 48px rgba(220, 38, 38, 0.2), 0 4px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.01);
+}
+
+.topGlow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.9), transparent);
+  transition: width 0.4s ease;
+}
+
+.tallCard:hover .topGlow {
+  width: 240px;
+}
+
+.tallIcon {
+  font-size: 38px;
+  line-height: 1;
+  transform: scale(1) rotate(0deg);
+  transition: transform 0.35s ease;
+  display: inline-block;
+  width: max-content;
+}
+
+.tallCard:hover .tallIcon {
+  transform: scale(1.12) rotate(-4deg);
+}
+
+.tallTag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tag-color);
+  font-family: var(--font-rajdhani), sans-serif;
+}
+
+.tallTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f1f5f9;
+  font-family: var(--font-orbitron), monospace;
+  line-height: 1.25;
+  transition: color 0.25s ease;
+}
+
+.tallCard:hover .tallTitle {
+  color: #ffffff;
+}
+
+.tallDivider {
+  width: 40px;
+  height: 2px;
+  background: var(--tag-color);
+  border-radius: 2px;
+}
+
+.tallDescription {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.7;
+  margin: 0;
+  font-family: var(--font-rajdhani), sans-serif;
+  transition: color 0.25s ease;
+}
+
+.tallCard:hover .tallDescription {
+  color: #cbd5e1;
+}
+
+.tallBtn {
+  margin-top: 8px;
+  align-self: flex-start;
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.tallBtn:hover {
+  background: rgba(220, 38, 38, 0.5);
+  border-color: rgba(220, 38, 38, 0.9);
+}
+
+@media (max-width: 768px) {
+  .featuresSection {
+    padding: 64px 24px;
+  }
+  
+  .gridContainer {
+    flex-direction: column;
+  }
+}

@@ -149,8 +149,8 @@
 }
 
 /* Float label up when input is focused OR has content */
-.input:focus + .label,
-.input:not(:placeholder-shown) + .label {
+.input:focus+.label,
+.input:not(:placeholder-shown)+.label {
   top: 0.45rem;
   transform: translateY(0);
   font-size: 0.7rem;

@@ -1,6 +1,7 @@
 "use client"
 import React, { useMemo } from 'react';
 import { animationVariants, bubbles } from '@/app/utils/data/bubble.data';
+import styles from '@/app/styles/Hero.module.css';
 
 interface RandomizedBubble {
   top: string;
@@ -19,6 +20,28 @@ interface RandomizedBubble {
   floatDuration: number;
   driftDuration: number;
 }
+
+const getColorForBubble = (name: string) => {
+  switch (name) {
+    case "Iron Man":
+    case "Spider-Man":
+    case "Ant-Man":
+    case "Iron Core":
+      return "#E05454"; // Coral
+    case "Black Panther":
+    case "Wolverine":
+    case "Doctor Strange":
+      return "#C13383"; // Magenta
+    case "Hawkeye":
+    case "S.H.I.E.L.D":
+      return "#792CA2"; // Purple
+    case "Captain America":
+    case "Thor":
+    case "Hulk":
+    default:
+      return "#443199"; // Indigo
+  }
+};
 
 const Hero = () => {
 
@@ -59,13 +82,24 @@ const Hero = () => {
   }, []);
 
   return (
-    // OUTER WRAPPER = fake border
-    <div id="home" className="page-section min-h-screen bg-amber-50 p-2">
+    <div id="home" className={styles.heroSection}>
 
-      {/* INNER CONTAINER = curved */}
-      <div className="relative min-h-screen bg-linear-to-br from-black via-gray-900 to-black rounded-2xl overflow-hidden">
+      <div className={styles.innerContainer}>
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={styles.video}
+        >
+          <source src="/assets/videos/LoginVideo.mp4" type="video/mp4" />
+        </video>
 
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Video Overlay */}
+        <div className={styles.overlay} />
+
+        <div className={styles.bubblesWrapper}>
           {randomizedBubbles.map((bubble, index) => (
             <div
               key={index}
@@ -78,7 +112,7 @@ const Hero = () => {
             >
               {/* Vertical floating */}
               <div 
-                className="animate-float"
+                className={styles.animateFloat}
                 style={{
                   animationDuration: `${bubble.floatDuration}s`,
                   animationDelay: `${bubble.delay * 0.5}ms`,
@@ -86,7 +120,7 @@ const Hero = () => {
               >
                 {/* Horizontal drift */}
                 <div 
-                  className="animate-drift"
+                  className={styles.animateDrift}
                   style={{
                     animationDuration: `${bubble.driftDuration}s`,
                     animationDelay: `${bubble.delay * 0.3}ms`,
@@ -96,7 +130,7 @@ const Hero = () => {
                   <div className={animationVariants[index % animationVariants.length]}>
                     {/* Rotation + scale pulse */}
                     <div
-                      className={`${bubble.size} transform animate-bubble-spin`}
+                      className={`${bubble.size} transform ${styles.animateBubbleSpin}`}
                       style={{
                         animationDuration: `${bubble.rotationDuration}s`,
                         animationDirection: bubble.rotationDirection,
@@ -104,18 +138,16 @@ const Hero = () => {
                     >
                       {/* Breathing effect */}
                       <div 
-                        className="animate-breathe"
+                        className={styles.animateBreathe}
                         style={{
                           animationDuration: `${3 + (index % 3)}s`,
                           animationDelay: `${bubble.delay * 0.7}ms`,
                         }}
                       >
                         <div
-                          className={`w-full h-full rounded-full overflow-hidden border-4 ${bubble.border}
-                          shadow-2xl ring-4 ring-black/40 bg-linear-to-br ${bubble.bg}
-                          flex items-center justify-center relative group transition-all duration-300
-                          hover:scale-110 hover:ring-8 hover:ring-white/20`}
+                          className={styles.bubbleCard}
                           style={{
+                            borderColor: `${getColorForBubble(bubble.name)}aa`,
                             transform: `scale(${bubble.scaleVariation})`,
                             opacity: bubble.opacity,
                             filter: bubble.blur ? 'blur(0.5px)' : 'none',
@@ -123,29 +155,29 @@ const Hero = () => {
                         >
                           {/* Animated glow ring */}
                           <div 
-                            className="absolute inset-0 rounded-full animate-pulse-glow"
+                            className={styles.pulseGlow}
                             style={{
-                              boxShadow: `0 0 30px ${bubble.bg.includes('blue') ? '#3b82f6' : bubble.bg.includes('purple') ? '#a855f7' : bubble.bg.includes('pink') ? '#ec4899' : bubble.bg.includes('green') ? '#10b981' : '#f59e0b'}`,
+                              boxShadow: `0 0 30px ${getColorForBubble(bubble.name)}`,
                               animationDelay: `${bubble.delay * 0.4}ms`,
                             }}
                           />
                           
                           {/* Glass reflection */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent rounded-full pointer-events-none" />
+                          <div className={styles.glassReflection} />
                           
                           {/* Image */}
                           <img
                             src={bubble.src}
                             alt={bubble.name}
-                            className="w-full h-full object-cover relative z-10"
+                            className={styles.bubbleImage}
                           />
                           
                           {/* Bottom shine */}
-                          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-white/20 to-transparent rounded-b-full pointer-events-none" />
+                          <div className={styles.bottomShine} />
                           
                           {/* Sparkle */}
                           <div 
-                            className="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full animate-sparkle"
+                            className={styles.sparkle}
                             style={{
                               animationDelay: `${bubble.delay * 0.6}ms`,
                             }}
@@ -159,62 +191,6 @@ const Hero = () => {
             </div>
           ))}
         </div>
-
-        <style jsx global>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-          }
-          
-          @keyframes drift {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(10px); }
-          }
-          
-          @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-          }
-          
-          @keyframes pulse-glow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-          }
-          
-          @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1) rotate(180deg); }
-          }
-          
-          @keyframes bubble-rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          
-          .animate-float {
-            animation: float 5s ease-in-out infinite;
-          }
-          
-          .animate-drift {
-            animation: drift 8s ease-in-out infinite;
-          }
-          
-          .animate-breathe {
-            animation: breathe 3s ease-in-out infinite;
-          }
-          
-          .animate-pulse-glow {
-            animation: pulse-glow 2.5s ease-in-out infinite;
-          }
-          
-          .animate-sparkle {
-            animation: sparkle 3s ease-in-out infinite;
-          }
-          
-          .animate-bubble-spin {
-            animation: bubble-rotate 10s linear infinite;
-          }
-        `}</style>
       </div>
     </div>
   );
