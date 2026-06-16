@@ -1,22 +1,18 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { cn } from "@/lib/utils";
+"use client";
+
+import React, { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import styles from "@/app/styles/FAQs.module.css";
 
 interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  className?: string;
 }
 
 interface Faq1Props {
   heading?: string;
   items?: FaqItem[];
-  className?: string;
 }
 
 const Faq1 = ({
@@ -24,71 +20,80 @@ const Faq1 = ({
   items = [
     {
       id: "faq-1",
-      question: "What is a FAQ?",
+      question: "What is Starkscripts?",
       answer:
-        "A FAQ is a list of frequently asked questions and answers on a particular topic.",
+        "Starkscripts is a premium platform for cutting-edge automation scripts, developer tools, and API resources inspired by Tony Stark's engineering marvels.",
     },
     {
       id: "faq-2",
-      question: "What is the purpose of a FAQ?",
+      question: "Are the scripts secure to run on my system?",
       answer:
-        "The purpose of a FAQ is to provide answers to common questions and help users find the information they need quickly and easily.",
+        "Yes, absolutely. Every script is meticulously sandboxed, static-analyzed, and digitally signed before distribution to guarantee 100% security.",
     },
     {
       id: "faq-3",
-      question: "How do I create a FAQ?",
+      question: "Can I customize the scripts for my own commercial projects?",
       answer:
-        "To create a FAQ, you need to compile a list of common questions and answers on a particular topic and organize them in a clear and easy-to-navigate format.",
+        "Definitely! All purchased assets grant you full access to clean, well-documented source code, with a license authorizing commercial custom integrations.",
     },
     {
       id: "faq-4",
-      question: "What are the benefits of a FAQ?",
+      question: "How do I receive updates when tools are upgraded?",
       answer:
-        "The benefits of a FAQ include providing quick and easy access to information, reducing the number of support requests, and improving the overall user experience.",
+        "Whenever a tool is upgraded, we automatically notify you. You can download the latest version instantly from your account dashboard free of charge.",
     },
     {
       id: "faq-5",
-      question: "How should I organize my FAQ?",
+      question: "What stack is Starkscripts built on?",
       answer:
-        "You should organize your FAQ in a logical manner, grouping related questions together and ordering them from most basic to more advanced topics.",
+        "We develop our tools and platform using a top-tier modern ecosystem, including Next.js, React, TypeScript, Node.js, Prisma, and Redis.",
     },
     {
       id: "faq-6",
-      question: "How long should FAQ answers be?",
+      question: "Do you offer developer support for custom integrations?",
       answer:
-        "FAQ answers should be concise and to the point, typically a few sentences or a short paragraph is sufficient for most questions.",
-    },
-    {
-      id: "faq-7",
-      question: "Should I include links in my FAQ?",
-      answer:
-        "Yes, including links to more detailed information or related resources can be very helpful for users who want to learn more about a particular topic.",
+        "Yes. We offer dedicated 24/7 technical support from our lead engineers to help you build, adapt, or troubleshoot your custom tools.",
     },
   ],
-  className,
 }: Faq1Props) => {
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const toggleItem = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-4 text-3xl font-semibold md:mb-11 md:text-4xl">
-            {heading}
-          </h1>
-          <Accordion type="single" collapsible>
-            {items.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="font-semibold hover:no-underline">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+    <div className={styles.faqSection}>
+      <div className={styles.container}>
+        <h1 className={styles.heading}>{heading}</h1>
+        <div className={styles.accordion}>
+          {items.map((item) => {
+            const isOpen = openId === item.id;
+            return (
+              <div
+                key={item.id}
+                className={styles.item}
+                data-state={isOpen ? "open" : "closed"}
+              >
+                <button
+                  className={styles.trigger}
+                  onClick={() => toggleItem(item.id)}
+                  aria-expanded={isOpen}
+                >
+                  <span>{item.question}</span>
+                  <ChevronDown className={styles.triggerIcon} />
+                </button>
+                <div className={styles.contentWrapper}>
+                  <div className={styles.contentInner}>
+                    <div className={styles.content}>{item.answer}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
