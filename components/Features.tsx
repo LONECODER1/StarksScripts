@@ -24,8 +24,8 @@ const SmallCard = ({ icon, title, description, tag, tagColor, delay }: {
       ref={ref}
       className={`${styles.smallCard} ${inView ? styles.inView : ''}`}
       style={{
-        '--tag-color': tagColor,
-        '--tag-color-alpha': `${tagColor}22`,
+        '--tag-color': tagColor === '#dc2626' ? 'var(--primary)' : 'var(--secondary)',
+        '--tag-color-alpha': tagColor === '#dc2626' ? 'color-mix(in srgb, var(--primary) 15%, transparent)' : 'color-mix(in srgb, var(--secondary) 15%, transparent)',
         '--delay': `${delay}ms`,
       } as React.CSSProperties}
     >
@@ -52,7 +52,7 @@ const TallCard = ({ icon, title, description, tag, tagColor }: {
       ref={ref}
       className={`${styles.tallCard} ${inView ? styles.inView : ''}`}
       style={{
-        '--tag-color': tagColor,
+        '--tag-color': 'var(--primary)',
       } as React.CSSProperties}
     >
       <div className={styles.topGlow} />

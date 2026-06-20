@@ -4,16 +4,55 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/styles/Header.module.css';
 import { headerNavItems, NavSectionId } from '@/app/utils/data/HomePage.data';
+import { signOut } from 'next-auth/react';
 
-const Header = () => {
+interface HeaderProps {
+    session?: {
+        user?: {
+            name?: string | null;
+            email?: string | null;
+            id?: string | null;
+        } | null;
+    } | null;
+}
+
+const Header = ({ session }: HeaderProps) => {
 
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<NavSectionId>(headerNavItems[0].id);
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+    useEffect(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        setTheme(isDark ? 'dark' : 'light');
+    }, []);
+
+    const toggleTheme = () => {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme);
+        if (nextTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    };
 
     const handleRegister = () => {
         setMenuOpen(false);
         router.push('/register');
+    };
+
+    const handleLogin = () => {
+        setMenuOpen(false);
+        router.push('/login');
+    };
+
+    const handleSignOut = async () => {
+        setMenuOpen(false);
+        await signOut({ callbackUrl: '/' });
     };
 
     const closeMenu = () => setMenuOpen(false);
@@ -111,14 +150,45 @@ const Header = () => {
 
                 <div className={styles.rightArea}>
                     <div className={styles.statusDot} />
-                    <span className={styles.tagline}>
-                        New to StarkScripts?
-                    </span>
+                    {session?.user ? (
+                        <>
+                            <span className={styles.tagline}>
+                                Welcome, {session.user.name || session.user.email}
+                            </span>
+                            <button
+                                className={styles.logoutBtn}
+                                onClick={handleSignOut}
+                            >
+                                Sign Out
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <span className={styles.tagline}>
+                                New to StarkScripts?
+                            </span>
+                            <button
+                                className={styles.loginBtn}
+                                onClick={handleLogin}
+                            >
+                                Login
+                            </button>
+                            <button
+                                className={styles.registerBtn}
+                                onClick={handleRegister}
+                            >
+                                Register
+                            </button>
+                        </>
+                    )}
                     <button
-                        className={styles.registerBtn}
-                        onClick={handleRegister}
+                        type="button"
+                        className={styles.themeToggleBtn}
+                        onClick={toggleTheme}
+                        aria-label="Toggle theme"
+                        title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                     >
-                        Register
+                        {theme === 'dark' ? '☀️' : '🌙'}
                     </button>
                     <button
                         type="button"
@@ -185,14 +255,43 @@ const Header = () => {
                 </nav>
 
                 <div className={styles.sidebarFooter}>
-                    <span className={styles.sidebarTagline}>
-                        New to StarkScripts?
-                    </span>
+                    {session?.user ? (
+                        <>
+                            <span className={styles.sidebarTagline}>
+                                Welcome, {session.user.name || session.user.email}
+                            </span>
+                            <button
+                                className={styles.sidebarLogoutBtn}
+                                onClick={handleSignOut}
+                            >
+                                Sign Out
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <span className={styles.sidebarTagline}>
+                                New to StarkScripts?
+                            </span>
+                            <button
+                                className={styles.sidebarLoginBtn}
+                                onClick={handleLogin}
+                            >
+                                Login
+                            </button>
+                            <button
+                                className={styles.sidebarRegisterBtn}
+                                onClick={handleRegister}
+                            >
+                                Register
+                            </button>
+                        </>
+                    )}
                     <button
-                        className={styles.sidebarRegisterBtn}
-                        onClick={handleRegister}
+                        type="button"
+                        className={styles.sidebarThemeBtn}
+                        onClick={toggleTheme}
                     >
-                        Register
+                        Theme: {theme === 'dark' ? 'Light Mode ☀️' : 'Dark Mode 🌙'}
                     </button>
                 </div>
             </aside>

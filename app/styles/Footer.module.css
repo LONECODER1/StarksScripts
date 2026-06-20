@@ -76,7 +76,7 @@
   font-family: var(--font-orbitron), monospace;
   font-size: 15px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   margin: 6px 0 4px;
   letter-spacing: 0.02em;
 }
@@ -110,9 +110,9 @@
   padding: 10px 14px;
   font-size: 13px;
   font-family: var(--font-rajdhani), sans-serif;
-  color: #0f172a;
-  background: #f8fafc;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 6px;
   outline: none;
   letter-spacing: 0.02em;
@@ -140,8 +140,9 @@
 
 /* Footer Section */
 .footer {
-  background: #ffffff;
-  border-top: 1px solid rgba(220, 38, 38, 0.2);
+  background: var(--background);
+  color: var(--foreground);
+  border-top: 1px solid var(--border);
   font-family: var(--font-rajdhani), sans-serif;
   position: relative;
   overflow: hidden;
@@ -167,7 +168,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 48px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid var(--border);
   gap: 48px;
   flex-wrap: wrap;
 }
@@ -207,17 +208,17 @@
   font-family: var(--font-orbitron), monospace;
   font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   letter-spacing: 0.04em;
 }
 
 .brandAccent {
-  color: #dc2626;
+  color: var(--primary);
 }
 
 .brandTagline {
   font-size: 9px;
-  color: rgba(100, 116, 139, 0.7);
+  color: var(--muted-foreground);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-top: 3px;
@@ -225,7 +226,7 @@
 
 .brandDesc {
   font-size: 13px;
-  color: #64748b;
+  color: var(--muted-foreground);
   line-height: 1.75;
   margin: 0;
   font-weight: 500;
@@ -241,14 +242,14 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
   padding: 48px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid var(--border);
 }
 
 .linksColTitle {
   font-family: var(--font-orbitron), monospace;
   font-size: 11px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 20px;

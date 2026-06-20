@@ -1,5 +1,6 @@
 .header {
-  background: #ffffff;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
   height: 72px;
   display: flex;
   align-items: center;
@@ -14,8 +15,8 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1.5px solid rgba(220, 38, 38, 0.6);
-  background: rgba(220, 38, 38, 0.06);
+  border: 1.5px solid color-mix(in srgb, var(--primary) 60%, transparent);
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +41,7 @@
   font-family: var(--font-orbitron), monospace;
   font-size: 18px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   letter-spacing: 0.04em;
   white-space: nowrap;
   overflow: hidden;
@@ -48,12 +49,12 @@
 }
 
 .brandAccent {
-  color: #dc2626;
+  color: var(--primary);
 }
 
 .brandTagline {
   font-size: 10px;
-  color: rgba(100, 116, 139, 0.8);
+  color: var(--muted-foreground);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-top: 3px;
@@ -72,14 +73,14 @@
 .navDivider {
   width: 1px;
   height: 14px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--border);
   flex-shrink: 0;
 }
 
 .navLink {
   font-size: 13px;
   font-weight: 600;
-  color: #475569;
+  color: var(--muted-foreground);
   text-decoration: none;
   padding: 6px 14px;
   border-radius: 4px;
@@ -90,11 +91,11 @@
 }
 
 .navLink:hover {
-  color: #dc2626;
+  color: var(--primary);
 }
 
 .navLinkActive {
-  color: #dc2626;
+  color: var(--primary);
 }
 
 .rightArea {
@@ -109,14 +110,14 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3b82f6;
-  box-shadow: 0 0 6px rgba(59, 130, 246, 0.6);
+  background: var(--secondary);
+  box-shadow: 0 0 6px var(--secondary);
   flex-shrink: 0;
 }
 
 .tagline {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--muted-foreground);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 500;
@@ -129,22 +130,86 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fff;
-  background: #dc2626;
-  border: 1.5px solid #dc2626;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border: 1.5px solid var(--primary);
   padding: 8px 20px;
   border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .registerBtn:hover {
-  background: #fff;
-  border-color: #fff;
-  color: #b91c1c;
+  background: var(--background);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.loginBtn {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.loginBtn:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.logoutBtn {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  padding: 8px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.themeToggleBtn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--foreground);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.themeToggleBtn:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(1.05);
 }
 
 .menuBtn {
@@ -157,7 +222,7 @@
   height: 40px;
   padding: 0;
   background: transparent;
-  border: 1.5px solid rgba(220, 38, 38, 0.3);
+  border: 1.5px solid color-mix(in srgb, var(--primary) 30%, transparent);
   border-radius: 4px;
   cursor: pointer;
   flex-shrink: 0;
@@ -167,7 +232,7 @@
   display: block;
   width: 18px;
   height: 2px;
-  background: #0f172a;
+  background: var(--foreground);
   border-radius: 1px;
   transition:
     transform 0.25s ease,
@@ -189,7 +254,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 200;
   opacity: 0;
   visibility: hidden;
@@ -210,13 +275,14 @@
   width: min(300px, 85vw);
   height: 100vh;
   height: 100dvh;
-  background: #ffffff;
+  background: var(--card);
   z-index: 300;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.3s ease;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  border-left: 1px solid var(--border);
   font-family: var(--font-rajdhani), sans-serif;
 }
 
@@ -229,7 +295,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -251,7 +317,7 @@
   border: none;
   font-size: 28px;
   line-height: 1;
-  color: #475569;
+  color: var(--muted-foreground);
   cursor: pointer;
   border-radius: 4px;
   flex-shrink: 0;
@@ -261,8 +327,8 @@
 }
 
 .closeBtn:hover {
-  color: #dc2626;
-  background: rgba(220, 38, 38, 0.06);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
 }
 
 .sidebarNav {
@@ -276,7 +342,7 @@
 .sidebarLink {
   font-size: 15px;
   font-weight: 600;
-  color: #475569;
+  color: var(--muted-foreground);
   text-decoration: none;
   padding: 14px 1.5rem;
   letter-spacing: 0.08em;
@@ -289,14 +355,14 @@
 }
 
 .sidebarLink:hover {
-  color: #dc2626;
-  background: rgba(220, 38, 38, 0.04);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 4%, transparent);
 }
 
 .sidebarLinkActive {
-  color: #dc2626;
-  border-left-color: #dc2626;
-  background: rgba(220, 38, 38, 0.06);
+  color: var(--primary);
+  border-left-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
 }
 
 .sidebarFooter {
@@ -304,13 +370,13 @@
   flex-direction: column;
   gap: 12px;
   padding: 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 
 .sidebarTagline {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--muted-foreground);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 500;
@@ -323,21 +389,63 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fff;
-  background: #dc2626;
-  border: 1.5px solid #dc2626;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border: 1.5px solid var(--primary);
   padding: 12px 20px;
   border-radius: 3px;
   cursor: pointer;
   width: 100%;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .sidebarRegisterBtn:hover {
-  background: #b91c1c;
-  border-color: #b91c1c;
+  background: var(--background);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.sidebarLoginBtn {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.sidebarLoginBtn:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.sidebarLogoutBtn {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  padding: 12px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.sidebarLogoutBtn:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
 
 /* Tablet — tighten spacing, hide tagline */
@@ -362,7 +470,9 @@
     display: none;
   }
 
-  .registerBtn {
+  .registerBtn,
+  .loginBtn,
+  .logoutBtn {
     display: none;
   }
 
@@ -413,4 +523,27 @@
   .brandName {
     font-size: 15px;
   }
+}
+
+.sidebarThemeBtn {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.sidebarThemeBtn:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+  color: var(--primary);
 }

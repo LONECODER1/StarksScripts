@@ -16,7 +16,8 @@ const Hero = () => {
               className={styles.item}
               style={{ '--position': pos } as React.CSSProperties}
             >
-              <img src={`/assets/3d-slider/images/dragon_${pos}.jpg`} alt={`Dragon ${pos}`} />
+              {/* <img src={`/assets/3d-slider/images/dragon_${pos}.jpg`} alt={`Dragon ${pos}`} /> */}
+              <img src={`/assets/3d-slider/images/avengers_${pos}.jpeg`} alt={`avengers${pos}`} />
             </div>
           ))}
         </div>

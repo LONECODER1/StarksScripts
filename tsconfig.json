@@ -30,5 +30,12 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "app/server.ts",
+    "app/routes",
+    "app/controllers",
+    "app/services",
+    "app/api/auth/controllers"
+  ]
 }

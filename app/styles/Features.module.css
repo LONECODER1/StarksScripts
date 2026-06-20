@@ -1,6 +1,7 @@
 .featuresSection {
   padding: 96px 64px;
-  background: #f8fafc;
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-rajdhani), sans-serif;
 }
 
@@ -29,7 +30,7 @@
   font-family: var(--font-orbitron), monospace;
   font-size: 32px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   margin: 10px 0 14px;
   letter-spacing: 0.02em;
 }
@@ -40,7 +41,7 @@
 
 .sectionDescription {
   font-size: 15px;
-  color: #64748b;
+  color: var(--muted-foreground);
   max-width: 480px;
   margin: 0 auto;
   line-height: 1.7;
@@ -63,12 +64,12 @@
 
 /* SmallCard styles */
 .smallCard {
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 28px;
   flex: 1;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s ease var(--delay), transform 0.7s ease var(--delay);
@@ -115,7 +116,7 @@
 .title {
   font-size: 15px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--foreground);
   font-family: var(--font-orbitron), monospace;
   line-height: 1.3;
   transition: color 0.25s ease;
@@ -127,7 +128,7 @@
 
 .description {
   font-size: 13px;
-  color: #64748b;
+  color: var(--muted-foreground);
   line-height: 1.65;
   margin: 0;
   font-family: var(--font-rajdhani), sans-serif;
@@ -148,12 +149,12 @@
 
 /* TallCard styles */
 .tallCard {
-  background: #0f172a;
-  border: 1px solid rgba(220, 38, 38, 0.3);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 40px 32px;
   flex: 1;
-  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
   opacity: 0;
   transform: translateY(40px) scale(0.97);
   transition: opacity 0.75s ease 300ms, transform 0.75s ease 300ms;
@@ -218,14 +219,14 @@
 .tallTitle {
   font-size: 22px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: var(--foreground);
   font-family: var(--font-orbitron), monospace;
   line-height: 1.25;
   transition: color 0.25s ease;
 }
 
 .tallCard:hover .tallTitle {
-  color: #ffffff;
+  color: var(--primary);
 }
 
 .tallDivider {
@@ -237,7 +238,7 @@
 
 .tallDescription {
   font-size: 14px;
-  color: #94a3b8;
+  color: var(--muted-foreground);
   line-height: 1.7;
   margin: 0;
   font-family: var(--font-rajdhani), sans-serif;
@@ -245,7 +246,7 @@
 }
 
 .tallCard:hover .tallDescription {
-  color: #cbd5e1;
+  color: var(--foreground);
 }
 
 .tallBtn {
@@ -256,18 +257,18 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fff;
-  background: rgba(220, 38, 38, 0.2);
-  border: 1px solid rgba(220, 38, 38, 0.5);
+  color: var(--primary);
+  background: transparent;
+  border: 1.5px solid var(--primary);
   padding: 8px 20px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .tallBtn:hover {
-  background: rgba(220, 38, 38, 0.5);
-  border-color: rgba(220, 38, 38, 0.9);
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
 
 @media (max-width: 768px) {
