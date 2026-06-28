@@ -6,7 +6,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   font-family: var(--font-rajdhani), sans-serif;
   z-index: 100;
 }

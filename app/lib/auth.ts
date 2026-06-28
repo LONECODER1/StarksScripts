@@ -50,6 +50,7 @@ export const authOptions: NextAuthConfig = {
                         id: String(user.id),
                         name: user.name,
                         email: user.email,
+                        role: user.role,
                     };
                 } catch (error) {
                     console.error("Authorization error:", error);
@@ -80,8 +81,10 @@ export const authOptions: NextAuthConfig = {
                             }
                         });
                         user.id = String(newUser.id);
+                        user.role = newUser.role;
                     } else {
                         user.id = String(existingUser.id);
+                        user.role = existingUser.role;
                     }
                     return true;
                 } catch (error) {

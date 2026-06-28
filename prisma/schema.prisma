@@ -21,9 +21,129 @@ model User {
   role      UserRole @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  submissions Submission[]
 }
 
 enum UserRole {
   USER
   ADMIN
+}
+
+
+model Problem {
+  id              String           @id @default(uuid())
+  title           String           @unique
+  slug            String           @unique
+  description     String           @db.Text
+  difficlty       Difficulty       @default(Easy)
+  points          Int              @default(10)
+
+  // External link to the question (e.g., LeetCode URL)
+  externalUrl     String?
+
+  // Acceptance rate stored as a float percentage (e.g., 45.5)
+  acceptanceRate  Float            @default(0.0)
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Relations
+  tags            Tag[]            // Many-to-many with topics
+  codeSnippets    CodeSnippet[]    // Boilerplate starter code for each language
+  testCases       TestCase[]       // Basic/hidden test cases for grading
+  submissions     Submission[]
+  companyProblems CompanyProblem[] // PYQ company tags
+}
+
+model Tag {
+  id       String    @id @default(uuid())
+  name     String    @unique // e.g., "Array", "Dynamic Programming"
+  slug     String    @unique
+  problems Problem[] // Implicit many-to-many relation in Prisma
+}
+
+model CodeSnippet {
+  id         String   @id @default(uuid())
+  language   String   // e.g., "cpp", "javascript", "python"
+  code       String   @db.Text // The boilerplate code provided to the user
+  problemId  String
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([problemId, language]) // A problem can only have one snippet per language
+}
+
+model TestCase {
+  id         String   @id @default(uuid())
+  input      String   @db.Text // Serialized string or structured input parameter
+  output     String   @db.Text // Expected standard output
+  isSample   Boolean  @default(false) // True if visible to user in the description/UI
+  problemId  String
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id          String           @id @default(uuid())
+  code        String           @db.Text
+  language    String
+  status      SubmissionStatus @default(PENDING)
+  executionTime Int?           // In milliseconds
+  memoryUsed  Int?             // In KB
+  errorMessage String?         @db.Text // Stores compilation errors or stack traces
+  createdAt   DateTime         @default(now())
+  
+  userId      Int
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId   String
+  problem     Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+enum SubmissionStatus {
+  PENDING
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  COMPILE_ERROR
+  RUNTIME_ERROR
+}
+
+
+model Company {
+  id        String           @id @default(uuid())
+  name      String           @unique // e.g., "Google", "Amazon", "Meta"
+  slug      String           @unique // e.g., "google", "amazon"
+  logoUrl   String?          // Optional URL for company brand icon
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Relations
+  companyProblems CompanyProblem[]
+}
+
+// Explicit Join Table to handle PYQ Metadata
+model CompanyProblem {
+  id         String   @id @default(uuid())
+  
+  // Metadata fields for the PYQ
+  year       Int      // e.g., 2025, 2026
+  role       String?  // e.g., "Software Engineer Intern", "SDE-1"
+  frequency  Int      @default(1) // Tracks how many times this specific company asked it that year
+
+  // Relations
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  problemId  String
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  // Avoid duplicate entries for the exact same problem, company, year, and role combination
+  @@unique([companyId, problemId, year, role])
+}
+
+enum Difficulty {
+  Easy
+  Medium
+  Hard
 }

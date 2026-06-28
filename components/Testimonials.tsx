@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, Variants } from "framer-motion";
-import { testimonialsData } from "@/app/utils/data/bubble.data";
+import { testimonialsData } from "@/app/utils/data/HomePage.data";
 import styles from "@/app/styles/Testimonials.module.css";
 
 type Testimonial = {
@@ -22,30 +21,16 @@ const TestimonialRow: React.FC<TestimonialRowProps> = ({
 }) => {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
-  const marqueeVariants: Variants = {
-    animate: {
-      x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop" as const,
-          duration: 35,
-          ease: "linear",
-        },
-      },
-    },
-  };
-
   return (
     <div className={styles.marqueeRow}>
       {/* Edge fade */}
       <div className={styles.fadeLeft} />
       <div className={styles.fadeRight} />
 
-      <motion.div
-        className="flex gap-6 w-max overflow-visible hover:[animation-play-state:paused]"
-        variants={marqueeVariants}
-        animate="animate"
+      <div
+        className={`${styles.marqueeContainer} ${
+          direction === "left" ? styles.marqueeLeft : styles.marqueeRight
+        }`}
       >
         {duplicatedTestimonials.map((t, i) => (
           <div
@@ -66,7 +51,7 @@ const TestimonialRow: React.FC<TestimonialRowProps> = ({
             </div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

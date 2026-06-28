@@ -64,3 +64,22 @@ export const featuresData = [
     ],
   },
 ];
+type Testimonial = {
+  name: string;
+  role: string;
+  description: string;
+};
+export const testimonialsData: Testimonial[] = [
+  { name: "Teesta Mukherjee", role: "Heart Recipient", description: "Thanks to organ donation, I got a second chance at life. Now I can watch my children grow up." },
+  { name: "Arun Verma", role: "Kidney Recipient", description: "Dialysis was draining my life, but the transplant gave me the freedom to live again." },
+  { name: "Nisha Kapoor", role: "Liver Donor (Living)", description: "Donating part of my liver to my father was the best decision of my life. He's healthier than ever." },
+  { name: "Ravi Subramanian", role: "Donor's Brother", description: "Losing my sister was heartbreaking, but knowing she saved four lives gives me peace." },
+  { name: "Fatima Khan", role: "Cornea Recipient", description: "I was blind for over a decade. Now I can see my grandchildren's faces thanks to someone's gift." },
+  { name: "Devansh Rathi", role: "Awareness Volunteer", description: "Talking to people about organ donation changed my perspective—and theirs too." },
+  { name: "Megha Chatterjee", role: "Mother of Recipient", description: "My son was just 8 when he got a liver transplant. That anonymous donor saved his childhood." },
+  { name: "Prakash Iyer", role: "Transplant Surgeon", description: "Every successful transplant I perform reminds me of the deep humanity in donation." },
+  { name: "Ananya Roy", role: "Tissue Recipient", description: "After a major accident, donated skin helped me recover without severe scarring." },
+  { name: "Mohit Sharma", role: "Donor (Living Kidney)", description: "I donated a kidney to my cousin. We both lead healthy lives today." },
+  { name: "Sharanya Pillai", role: "Social Worker", description: "I work with donor families, and their strength in loss never fails to move me." },
+  { name: "Yusuf Ali", role: "Father of Donor", description: "My daughter died too soon, but her organs saved six lives. Her kindness lives on." },
+];

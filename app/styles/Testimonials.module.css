@@ -211,3 +211,41 @@
   margin-top: 0.25rem;
   /* mt-1 */
 }
+
+/* ── Pure CSS Marquee with Hover Pause ── */
+.marqueeContainer {
+  display: flex;
+  gap: 1.5rem; /* gap-6 */
+  width: max-content;
+  overflow: visible;
+}
+
+.marqueeLeft {
+  animation: marqueeLeft 35s linear infinite;
+}
+
+.marqueeRight {
+  animation: marqueeRight 35s linear infinite;
+}
+
+.marqueeContainer:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

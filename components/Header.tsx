@@ -114,7 +114,7 @@ const Header = ({ session }: HeaderProps) => {
                 <div className={styles.logoArea}>
                     <div className={styles.logoWrapper}>
                         <Image
-                            src="/assets/ironcore.png"
+                            src="/assets/markers/ironcore.png"
                             alt="Iron Core"
                             width={40}
                             height={40}
@@ -218,7 +218,7 @@ const Header = ({ session }: HeaderProps) => {
                     <div className={styles.sidebarBrand}>
                         <div className={styles.logoWrapper}>
                             <Image
-                                src="/assets/ironcore.png"
+                                src="/assets/markers/ironcore.png"
                                 alt="Iron Core"
                                 width={36}
                                 height={36}
