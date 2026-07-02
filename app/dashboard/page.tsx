@@ -211,13 +211,16 @@ export default async function DashboardPage() {
                                             // ADMINISTRATIVE PRIVILEGES ACTIVE
                                         </p>
                                         <div className="space-y-3">
-                                            <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-500/10">
+                                            <Link
+                                                href="/admin/users"
+                                                className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-500/10 hover:bg-amber-500/10 transition-colors"
+                                            >
                                                 <Shield className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                                                 <div className="space-y-0.5">
                                                     <div className="text-xs font-bold font-heading">OPERATIVE MANAGER</div>
                                                     <div className="text-[10px] text-muted-foreground font-mono">Control permission levels & audit log files.</div>
                                                 </div>
-                                            </div>
+                                            </Link>
                                             <Link
                                                 href="/admin/problems"
                                                 className="flex items-start gap-3 p-3 rounded-lg bg-primary/5 border border-primary/10 hover:bg-primary/10 transition-colors"

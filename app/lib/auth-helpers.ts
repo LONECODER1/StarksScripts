@@ -40,3 +40,9 @@ export function slugify(text: string): string {
         .replace(/[\s_-]+/g, "-")
         .replace(/^-+|-+$/g, "");
 }
+
+export function isPrimaryAdmin(email: string | null | undefined): boolean {
+    if (!email) return false;
+    return email.toLowerCase() === "marstech.support@gmail.com";
+}
+

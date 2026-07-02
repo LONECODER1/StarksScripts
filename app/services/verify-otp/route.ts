@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prisma";
 import redisClient, { connectRedis } from "@/app/lib/redis";
+import { isPrimaryAdmin } from "@/app/lib/auth-helpers";
 
 export async function POST(request: Request) {
     try {
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
                 name: fullname,
                 email,
                 password: hashedPassword,
+                role: isPrimaryAdmin(email) ? "ADMIN" : "USER",
             },
         });
 

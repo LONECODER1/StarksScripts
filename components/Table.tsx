@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState, useMemo } from "react";
-import { 
-  Check, 
-  Calendar as CalendarIcon, 
-  Lock, 
-  Search, 
-  SlidersHorizontal, 
-  Shuffle, 
+import {
+  Check,
+  Calendar as CalendarIcon,
+  Lock,
+  Search,
+  SlidersHorizontal,
+  Shuffle,
   ChevronDown,
   ArrowUpDown,
   FileText,
@@ -86,7 +86,7 @@ export default function ProblemTable({ data = [] }: ProblemTableProps) {
 
     // Filter by tag if clicked
     if (selectedTag) {
-      result = result.filter(p => 
+      result = result.filter(p =>
         p.tags?.some(t => t.name.toLowerCase() === selectedTag.toLowerCase())
       );
     }
@@ -189,7 +189,7 @@ export default function ProblemTable({ data = [] }: ProblemTableProps) {
               className="w-full pl-9 pr-4 py-2 text-xs font-sans bg-muted/30 border border-border rounded-lg outline-none focus:border-primary/50 text-foreground placeholder:text-muted-foreground/60 transition-colors"
             />
           </div>
-          <button 
+          <button
             onClick={() => toggleSort("title")}
             className="p-2 hover:bg-muted/40 border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors shrink-0"
             title="Sort Modules"
@@ -334,8 +334,8 @@ export default function ProblemTable({ data = [] }: ProblemTableProps) {
                         problem.difficulty === "Easy"
                           ? "text-green-500"
                           : problem.difficulty === "Medium"
-                          ? "text-amber-500"
-                          : "text-red-500"
+                            ? "text-amber-500"
+                            : "text-red-500"
                       )}
                     >
                       {problem.difficulty === "Medium" ? "Med." : problem.difficulty}
@@ -350,9 +350,9 @@ export default function ProblemTable({ data = [] }: ProblemTableProps) {
                       ) : (
                         <>
                           <div className="w-16 bg-muted/40 h-1.5 rounded-full overflow-hidden border border-border/30">
-                            <div 
-                              className="bg-primary h-full rounded-full" 
-                              style={{ width: `${100 - idx * 20}%` }} 
+                            <div
+                              className="bg-primary h-full rounded-full"
+                              style={{ width: `${100 - idx * 20}%` }}
                             />
                           </div>
                           {idx === 2 && (

@@ -6,6 +6,7 @@ import { connectDB } from "./db";
 import bcrypt from "bcryptjs";
 import prisma from "./prisma";
 import { authConfig } from "./auth.config";
+import { isPrimaryAdmin } from "./auth-helpers";
 
 export const authOptions: NextAuthConfig = {
     ...authConfig,
@@ -33,7 +34,7 @@ export const authOptions: NextAuthConfig = {
                 }
                 try {
                     await connectDB();
-                    const user = await prisma.user.findUnique({
+                    let user = await prisma.user.findUnique({
                         where: { email }
                     });
                     if (!user) {
@@ -45,6 +46,12 @@ export const authOptions: NextAuthConfig = {
                     const isPasswordValid = await bcrypt.compare(password, user.password);
                     if (!isPasswordValid) {
                         throw new Error("Invalid password");
+                    }
+                    if (isPrimaryAdmin(email) && user.role !== "ADMIN") {
+                        user = await prisma.user.update({
+                            where: { email },
+                            data: { role: "ADMIN" }
+                        });
                     }
                     return {
                         id: String(user.id),
@@ -78,11 +85,19 @@ export const authOptions: NextAuthConfig = {
                             data: {
                                 name: user.name || email.split("@")[0],
                                 email: email,
+                                role: isPrimaryAdmin(email) ? "ADMIN" : "USER",
                             }
                         });
                         user.id = String(newUser.id);
                         user.role = newUser.role;
                     } else {
+                        if (isPrimaryAdmin(email) && existingUser.role !== "ADMIN") {
+                            const updatedUser = await prisma.user.update({
+                                where: { email },
+                                data: { role: "ADMIN" }
+                            });
+                            existingUser.role = updatedUser.role;
+                        }
                         user.id = String(existingUser.id);
                         user.role = existingUser.role;
                     }

@@ -3,6 +3,7 @@ import { auth } from "@/app/lib/auth";
 import { requireAdminPage } from "@/app/lib/auth-helpers";
 import Link from "next/link";
 import { Shield, Code, ArrowLeft } from "lucide-react";
+import AdminNav from "@/components/AdminNav";
 
 export default async function AdminLayout({
     children,
@@ -24,11 +25,11 @@ export default async function AdminLayout({
                             Admin Panel
                         </div>
                         <h1 className="text-2xl md:text-3xl font-heading font-bold tracking-tight flex items-center gap-2">
-                            <Code className="w-7 h-7 text-primary" />
-                            Script Editor
+                            <Shield className="w-7 h-7 text-primary" />
+                            Admin Operations
                         </h1>
                         <p className="text-sm text-muted-foreground font-mono">
-                            Manage coding challenges shown in the problemset
+                            Manage coding challenges, system permissions, and audit parameters
                         </p>
                     </div>
 
@@ -40,6 +41,8 @@ export default async function AdminLayout({
                         Back to Dashboard
                     </Link>
                 </div>
+
+                <AdminNav />
 
                 {children}
             </div>
