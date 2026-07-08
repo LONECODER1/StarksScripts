@@ -14,66 +14,49 @@ interface TestCase {
 }
 
 interface ConsolePanelProps {
+    problemSlug: string;
+    language: string;
     testCases: TestCase[];
     userCode: string;
 }
 
-export default function ConsolePanel({ testCases, userCode }: ConsolePanelProps) {
+export default function ConsolePanel({ problemSlug, language, testCases, userCode }: ConsolePanelProps) {
     const [results, setResults] = useState<any>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
 
-    const runCode = () => {
+    const runCode = async () => {
         setIsRunning(true);
-        setTimeout(() => {
-            let evalResults: any[] = [];
-            let runtimeError = null;
+        setResults(null);
+        try {
+            const response = await fetch(`/api/problems/${problemSlug}/run`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    code: userCode,
+                    language: language,
+                }),
+            });
 
-            try {
-                // Use indirect eval to run the user's code in the global scope.
-                // We wrap in an IIFE to get back the named function.
-                // eslint-disable-next-line no-new-func
-                const getUserFn = new Function(`
-                    "use strict";
-                    ${userCode}
-                    // Try to find what function was declared
-                    if (typeof threeSum !== 'undefined') return threeSum;
-                    return null;
-                `);
-                
-                const func = getUserFn();
-
-                if (!func) {
-                    throw new Error("Function 'threeSum' not found. Make sure you define 'var threeSum = function(nums) { ... };'");
-                }
-
-                for (const tc of testCases) {
-                    const inputArg = JSON.parse(tc.input);
-                    const expectedOut = JSON.parse(tc.output);
-                    
-                    const start = performance.now();
-                    const output = func(inputArg);
-                    const elapsed = performance.now() - start;
-
-                    // Normalize 3sum output (sort inner arrays + sort outer) for comparison
-                    const normalize = (arr: any) => {
-                        if (!Array.isArray(arr)) return JSON.stringify(arr);
-                        return JSON.stringify(
-                            arr.map((a: any) => Array.isArray(a) ? [...a].sort((x, y) => x - y) : a)
-                               .sort((a: any, b: any) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
-                        );
-                    };
-
-                    const pass = normalize(output) === normalize(expectedOut);
-                    evalResults.push({ pass, output, expected: expectedOut, time: elapsed.toFixed(2), input: inputArg });
-                }
-            } catch (err: any) {
-                runtimeError = err.message || err.toString();
+            const data = await response.json();
+            if (response.ok) {
+                setResults(data);
+            } else {
+                setResults({
+                    evalResults: [],
+                    runtimeError: data.error || "Execution failed",
+                });
             }
-
-            setResults({ evalResults, runtimeError });
+        } catch (err: any) {
+            setResults({
+                evalResults: [],
+                runtimeError: err.message || "Failed to contact execution server",
+            });
+        } finally {
             setIsRunning(false);
-        }, 300);
+        }
     };
 
     return (

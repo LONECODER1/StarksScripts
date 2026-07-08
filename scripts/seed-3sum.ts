@@ -24,22 +24,43 @@ async function main() {
         console.log('Problem 3Sum already exists');
     }
 
-    // Upsert Snippet
-    const existingSnippet = await prisma.codeSnippet.findFirst({
-        where: { problemId: problem.id, language: 'javascript' }
-    });
+    // Upsert Snippets
+    const snippets = [
+        {
+            language: 'javascript',
+            code: '/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar threeSum = function(nums) {\n    \n};'
+        },
+        {
+            language: 'cpp',
+            code: '#include <vector>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        \n    }\n};'
+        },
+        {
+            language: 'java',
+            code: 'import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        \n    }\n}'
+        },
+        {
+            language: 'python',
+            code: 'class Solution:\n    def threeSum(self, nums: List[int]) -> List[List[int]]:\n        '
+        }
+    ];
 
-    if (!existingSnippet) {
-        await prisma.codeSnippet.create({
-            data: {
-                language: 'javascript',
-                code: '/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar threeSum = function(nums) {\n    \n};',
-                problemId: problem.id
-            }
+    for (const snip of snippets) {
+        const existingSnippet = await prisma.codeSnippet.findFirst({
+            where: { problemId: problem.id, language: snip.language }
         });
-        console.log('Created code snippet for 3Sum (javascript)');
-    } else {
-        console.log('Code snippet already exists');
+
+        if (!existingSnippet) {
+            await prisma.codeSnippet.create({
+                data: {
+                    language: snip.language,
+                    code: snip.code,
+                    problemId: problem.id
+                }
+            });
+            console.log(`Created code snippet for 3Sum (${snip.language})`);
+        } else {
+            console.log(`Code snippet for 3Sum (${snip.language}) already exists`);
+        }
     }
 
     // Add test cases
